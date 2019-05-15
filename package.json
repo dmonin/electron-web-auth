@@ -1,0 +1,28 @@
+{
+  "name": "electron-web-auth",
+  "version": "1.0.4",
+  "description": "",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmonin/electron-web-auth.git"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "electron",
+    "auth"
+  ],
+  "author": "Dmitry Monin",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^5.0.1",
+    "electron-json-storage": "^4.1.6",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "@types/electron-json-storage": "^4.0.0"
+  }
+}
