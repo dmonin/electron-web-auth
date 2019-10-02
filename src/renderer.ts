@@ -17,6 +17,7 @@ interface Window {
   [key: string]: any; // Add index signature
 }
 
-export function registerWebService(win: Window) {
+export const registerWebService = (win: Window) => {
   win['ElectronService'] = electronService;
+  console.log('registered!');
 }

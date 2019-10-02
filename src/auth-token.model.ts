@@ -6,4 +6,12 @@ export class AuthToken {
     this.accessToken = accessToken;
     this.expiresAt = expiresAt;
   }
+
+  valueOf(): string {
+    return this.accessToken;
+  }
+
+  toString(): string {
+    return this.accessToken;
+  }
 }
