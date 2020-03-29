@@ -7,6 +7,7 @@ export class AuthService extends EventEmitter {
   token?: AuthToken;
   authWindow?: BrowserWindow;
   authUrl: string;
+
   constructor(authUrl: string) {
     super();
 

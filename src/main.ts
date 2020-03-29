@@ -1,5 +1,3 @@
-import { registerWebService } from './renderer';
-import { AuthToken } from './auth-token.model';
-import { AuthService } from './auth.service';
-
-export { AuthService, AuthToken, registerWebService }
+export { registerWebService } from './renderer';
+export { AuthToken } from './auth-token.model';
+export { AuthService } from './auth.service';

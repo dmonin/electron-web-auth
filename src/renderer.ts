@@ -19,5 +19,4 @@ interface Window {
 
 export const registerWebService = (win: Window) => {
   win['ElectronService'] = electronService;
-  console.log('registered!');
 }
