@@ -17,15 +17,20 @@ export class AuthService extends EventEmitter {
   }
 
   authorize(): void {
-    storage.get('token', (err: any, token: any) => {
-      if (token) {
-        this.token = new AuthToken(token['accessToken'], new Date(token['expiresAt']));
-        this.emit('auto-complete', this.token);
-      } else {
-        this.createWindow();
+    storage.get('token', (err: any, tokenData: any) => {
+      if (tokenData && tokenData['accessToken']) {
+        const token: AuthToken = new AuthToken(tokenData['accessToken'],
+          new Date(tokenData['expiresAt']));
+
+        if (!token.isExpired()) {
+          this.token = token;
+          this.emit('auth-complete', this.token);
+          return;
+        }
       }
+
+      this.createWindow();
     });
-    this.createWindow();
 
     ipcMain.on('get-auth-token', (evt: any, data: any) => {
       const win = evt.sender as BrowserWindow;
@@ -37,9 +42,8 @@ export class AuthService extends EventEmitter {
     });
   }
 
-  handleAuthComplete(evt: any, data: any): void {
-    const tokenData = data[0];
-    this.token = new AuthToken(tokenData.accessToken, new Date(tokenData.token.expires_at));
+  handleAuthComplete(evt: any, tokenData: any): void {
+    this.token = new AuthToken(tokenData.accessToken, new Date(tokenData.expiresAt));
     storage.set('token', this.token, (err: any) => {
       //
     });
