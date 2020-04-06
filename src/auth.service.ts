@@ -24,7 +24,7 @@ export class AuthService extends EventEmitter {
 
         if (!token.isExpired()) {
           this.token = token;
-          this.emit('auth-complete', this.token);
+          this.emit('auth', this.token);
           return;
         }
       }
@@ -43,14 +43,17 @@ export class AuthService extends EventEmitter {
   }
 
   handleAuthComplete(evt: any, tokenData: any): void {
-    this.token = new AuthToken(tokenData.accessToken, new Date(tokenData.expiresAt));
-    storage.set('token', this.token, (err: any) => {
-      //
-    });
-    if (this.authWindow) {
-      this.authWindow.close();
+    if (tokenData) {
+      this.token = new AuthToken(tokenData.accessToken, new Date(tokenData.expiresAt));
+      storage.set('token', this.token, (err: any) => {
+        //
+      });
     }
-    this.emit('auth', this.token);
+
+    if (this.authWindow && this.token) {
+      this.authWindow.close();
+      this.emit('auth', this.token);
+    }
   }
 
   private createWindow(): void {
